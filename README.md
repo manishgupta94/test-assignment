@@ -1,6 +1,7 @@
 # test-assignment
 **Description**
 This repository contains solution to the test task.  
+The code is written with an objective of accomplishing below tasks.  
 https://drive.google.com/file/d/1jf_hHrNRw-1vAE9eaNuAMt0Jov9CkAJG/view?usp=sharing  
 For the above index.html file, achieve the below tasks.
 Tasks:
