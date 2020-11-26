@@ -9,7 +9,6 @@ import com.test.assignment.user.domain.repository.WorkSectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,7 +50,6 @@ public class UserInformationService {
      * @param userInformationDTO UserInformationDTO object containing User filled
      *                          form data that is to be saved to the database.
      */
-//    @Transactional
     public void saveUserInformation(UserInformationDTO userInformationDTO) {
         User user = userRepository.getUserByUsername(userInformationDTO.getUsername());
         user.setName(userInformationDTO.getName());
@@ -67,7 +65,6 @@ public class UserInformationService {
      * @param username username of the current User
      * @return a userInformationDTO object that contains the form information to be used by the view component.
      */
-//    @Transactional
     public UserInformationDTO fetchUserInformation(String username) {
         User user = userRepository.getUserByUsername(username);
         UserInformationDTO userInformationDTO = new UserInformationDTO();
