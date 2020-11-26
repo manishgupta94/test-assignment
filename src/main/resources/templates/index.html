@@ -1,0 +1,79 @@
+<!--/* Thymeleaf template which takes in User Information and provides a Save button
+        which in turn calls Controller to save the user Information */-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title></head>
+
+<style>
+    .notification {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        max-width: 450px;
+    }
+    .notification.success {
+        background: green;
+        color: white;
+    }
+    .notification.error {
+        background: red;
+        color: white;
+    }
+</style>
+
+<body>
+<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3><br>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+<form action="#" th:action="@{/}" method="post" th:object="${userInformationDTO}">
+
+    <input type="hidden" th:value="${#httpServletRequest.remoteUser}" th:attr="name='username'">
+
+    Please enter your name and pick the Sectors you are currently involved in.
+    <br>
+    <br>
+    Name:
+    <label>
+        <input type="text" th:field="*{name}" required />
+    </label>
+    <br>
+    <br>
+    Sectors:
+
+    <label>
+        <select multiple="" size="5" th:field="*{selectedSectors}" required>
+            <div th:include="categoryFragment.html ::category(${sectors}, '')" ></div>
+        </select>
+    </label>
+
+    <br>
+    <br>
+    <label>
+        <input type="checkbox" th:field="*{agreeToTermsAndConditions}" required />
+    </label>
+    Agree to terms
+
+    <br>
+    <br>
+    <input type="submit" value="Save">
+
+    <div class="notification success" th:if="${(param.success != null) and (param.success[0] == 'true')}">
+        User data saved successfully
+    </div>
+
+    <div th:if="${(param.success != null) and (param.success[0] == 'false') and param.error != null}">
+        <div th:switch="${param.error[0]}">
+            <p class="notification error" th:case="'1'">Name must not be blank and between 2 to 35 characters.</p>
+            <p class="notification error" th:case="'2'">At least one work sector should be selected</p>
+            <p class="notification error" th:case="'3'">You must agree to terms before submitting the information</p>
+            <p class="notification error" th:case="*">There was an error saving user information.</p>
+        </div>
+
+    </div>
+</form>
+
+</body>
+</html>

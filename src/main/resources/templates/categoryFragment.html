@@ -1,0 +1,14 @@
+<!--/* Thymeleaf template used by index.html to display the WorkSectors in a hierarchical form.*/-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>fragment</title></head>
+<body>
+<div th:fragment="category(mainSectors, depth)" >
+        <div th:each="sector : ${mainSectors}">
+            <option th:value="${sector.getId()}" th:utext="${depth} + ${sector.getName()}"></option>
+            <div th:include="categoryFragment.html :: category(${sector.getChildWorkSectors()}, ${depth} + '&nbsp;&nbsp;&nbsp;&nbsp;')"></div>
+        </div>
+</div>
+</body>
+</html>
